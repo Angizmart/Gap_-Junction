@@ -124,7 +124,7 @@ This repository exists solely to establish Prior Art.
 
 ## 📧 Contact
 
-For licensing inquiries: [Your Email]
+For licensing inquiries: angiz.smart@gmail.com
 
 ---
 
