@@ -1,0 +1,154 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Angizmart/Gap_-Junction/api/billing.schema.json",
+  "title": "Gap Junction Billing API",
+  "description": "PRIOR ART: Aggregation Model for fiat micropayments. Published 2026-01-17.",
+  
+  "definitions": {
+    "RenterAccount": {
+      "type": "object",
+      "description": "Pre-paid credit balance for compute renters",
+      "properties": {
+        "renter_id": {
+          "type": "string",
+          "description": "Unique renter identifier"
+        },
+        "balance_cents": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Current credit balance in cents"
+        },
+        "total_spent": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Lifetime spending in cents"
+        }
+      },
+      "required": ["renter_id", "balance_cents"]
+    },
+    
+    "HostAccount": {
+      "type": "object",
+      "description": "PRIOR ART: Email-only payout routing. No bank details stored.",
+      "properties": {
+        "host_id": {
+          "type": "string",
+          "description": "Unique host identifier"
+        },
+        "paypal_email": {
+          "type": "string",
+          "format": "email",
+          "description": "PayPal email for payouts. ONLY routing info stored."
+        },
+        "balance_cents": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Accumulated earnings in cents"
+        },
+        "total_earned": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Lifetime earnings in cents"
+        },
+        "total_paid_out": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Lifetime payouts in cents"
+        }
+      },
+      "required": ["host_id", "balance_cents"]
+    },
+    
+    "UsageCharge": {
+      "type": "object",
+      "description": "Per-task deduction from renter credit balance",
+      "properties": {
+        "id": { "type": "string" },
+        "renter_id": { "type": "string" },
+        "task_id": { "type": "string" },
+        "node_id": { "type": "string" },
+        "fuel_consumed": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Wasm fuel units consumed"
+        },
+        "amount_cents": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Charge amount (fuel / 10,000,000,000)"
+        }
+      },
+      "required": ["renter_id", "task_id", "fuel_consumed", "amount_cents"]
+    },
+    
+    "EarningsCredit": {
+      "type": "object",
+      "description": "PRIOR ART: 85% host / 15% platform revenue share",
+      "properties": {
+        "id": { "type": "string" },
+        "host_id": { "type": "string" },
+        "task_id": { "type": "string" },
+        "gross_amount_cents": {
+          "type": "integer",
+          "description": "What renter paid"
+        },
+        "platform_fee_cents": {
+          "type": "integer",
+          "description": "15% to platform"
+        },
+        "net_amount_cents": {
+          "type": "integer",
+          "description": "85% to host"
+        }
+      },
+      "required": ["host_id", "task_id", "gross_amount_cents", "net_amount_cents"]
+    },
+    
+    "PayoutRequest": {
+      "type": "object",
+      "description": "PRIOR ART: Threshold-based on-demand PayPal payout",
+      "properties": {
+        "host_id": { "type": "string" },
+        "amount_cents": {
+          "type": "integer",
+          "minimum": 5000,
+          "description": "Minimum $50.00 (5000 cents)"
+        },
+        "paypal_email": {
+          "type": "string",
+          "format": "email"
+        }
+      },
+      "required": ["host_id", "amount_cents", "paypal_email"]
+    }
+  },
+  
+  "properties": {
+    "thresholds": {
+      "type": "object",
+      "description": "PRIOR ART: Aggregation Model constants",
+      "properties": {
+        "min_prepay_cents": {
+          "type": "integer",
+          "const": 2000,
+          "description": "$20.00 minimum prepay"
+        },
+        "min_payout_cents": {
+          "type": "integer",
+          "const": 5000,
+          "description": "$50.00 minimum payout"
+        },
+        "fuel_per_cent": {
+          "type": "integer",
+          "const": 10000000000,
+          "description": "10 billion fuel = $0.01"
+        },
+        "platform_fee_bps": {
+          "type": "integer",
+          "const": 1500,
+          "description": "15% in basis points"
+        }
+      }
+    }
+  }
+}

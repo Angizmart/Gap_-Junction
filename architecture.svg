@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" width="1200" height="700">
+  <!-- Background -->
+  <rect width="1200" height="700" fill="#0d1117"/>
+  
+  <!-- Title -->
+  <text x="600" y="40" font-family="Arial, sans-serif" font-size="24" fill="#58a6ff" text-anchor="middle" font-weight="bold">Gap Junction Architecture</text>
+  <text x="600" y="65" font-family="Arial, sans-serif" font-size="14" fill="#8b949e" text-anchor="middle">Fiat-Bridged Residential Compute Grid</text>
+  
+  <!-- RENTER SECTION (Left) -->
+  <rect x="50" y="100" width="200" height="250" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="150" y="130" font-family="Arial, sans-serif" font-size="16" fill="#58a6ff" text-anchor="middle" font-weight="bold">RENTERS</text>
+  
+  <!-- Stripe Box -->
+  <rect x="75" y="150" width="150" height="40" rx="5" fill="#635bff" stroke="#7c6fff"/>
+  <text x="150" y="175" font-family="Arial, sans-serif" font-size="12" fill="white" text-anchor="middle">Stripe ($20+ Pre-Pay)</text>
+  
+  <!-- Credit Ledger -->
+  <rect x="75" y="210" width="150" height="40" rx="5" fill="#238636" stroke="#2ea043"/>
+  <text x="150" y="235" font-family="Arial, sans-serif" font-size="12" fill="white" text-anchor="middle">Credit Ledger (SQL)</text>
+  
+  <!-- Deduct -->
+  <rect x="75" y="270" width="150" height="40" rx="5" fill="#1f6feb" stroke="#388bfd"/>
+  <text x="150" y="295" font-family="Arial, sans-serif" font-size="12" fill="white" text-anchor="middle">Deduct Per Task</text>
+  
+  <!-- Arrows Renter -->
+  <path d="M150 190 L150 210" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <path d="M150 250 L150 270" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  
+  <!-- CONTROL PLANE (Center) -->
+  <rect x="320" y="100" width="560" height="320" rx="10" fill="#161b22" stroke="#f78166"/>
+  <text x="600" y="130" font-family="Arial, sans-serif" font-size="16" fill="#f78166" text-anchor="middle" font-weight="bold">CONTROL PLANE (Go)</text>
+  
+  <!-- API Box -->
+  <rect x="350" y="150" width="120" height="50" rx="5" fill="#21262d" stroke="#30363d"/>
+  <text x="410" y="180" font-family="Arial, sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">gRPC API</text>
+  
+  <!-- Scheduler Box -->
+  <rect x="490" y="150" width="120" height="50" rx="5" fill="#21262d" stroke="#30363d"/>
+  <text x="550" y="180" font-family="Arial, sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">QoS Scheduler</text>
+  
+  <!-- Billing Box -->
+  <rect x="630" y="150" width="120" height="50" rx="5" fill="#21262d" stroke="#30363d"/>
+  <text x="690" y="180" font-family="Arial, sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">Billing Ledger</text>
+  
+  <!-- Database -->
+  <rect x="440" y="220" width="220" height="50" rx="5" fill="#1f6feb" stroke="#388bfd"/>
+  <text x="550" y="250" font-family="Arial, sans-serif" font-size="11" fill="white" text-anchor="middle">PostgreSQL + TimescaleDB</text>
+  
+  <!-- mTLS Label -->
+  <text x="600" y="310" font-family="Arial, sans-serif" font-size="12" fill="#8b949e" text-anchor="middle">── mTLS ──</text>
+  
+  <!-- Wasm Flow -->
+  <rect x="440" y="340" width="220" height="35" rx="5" fill="#f78166" stroke="#ff9a5c"/>
+  <text x="550" y="363" font-family="Arial, sans-serif" font-size="11" fill="white" text-anchor="middle">WASM WORKLOAD DISPATCH</text>
+  
+  <!-- RESIDENTIAL NODES (Bottom) -->
+  <rect x="320" y="450" width="560" height="120" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="600" y="480" font-family="Arial, sans-serif" font-size="14" fill="#7ee787" text-anchor="middle" font-weight="bold">RESIDENTIAL NODES (Rust + Wasmtime)</text>
+  
+  <!-- Node 1 -->
+  <rect x="360" y="500" width="100" height="50" rx="5" fill="#21262d" stroke="#7ee787"/>
+  <text x="410" y="530" font-family="Arial, sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">Agent 1</text>
+  
+  <!-- Node 2 -->
+  <rect x="500" y="500" width="100" height="50" rx="5" fill="#21262d" stroke="#7ee787"/>
+  <text x="550" y="530" font-family="Arial, sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">Agent 2</text>
+  
+  <!-- Node N -->
+  <rect x="640" y="500" width="100" height="50" rx="5" fill="#21262d" stroke="#7ee787"/>
+  <text x="690" y="530" font-family="Arial, sans-serif" font-size="11" fill="#c9d1d9" text-anchor="middle">Agent N</text>
+  
+  <!-- Dispatch Arrows -->
+  <path d="M550 375 L550 450" stroke="#f78166" stroke-width="2" marker-end="url(#arrowOrange)"/>
+  <path d="M410 450 L410 500" stroke="#7ee787" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <path d="M550 450 L550 500" stroke="#7ee787" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <path d="M690 450 L690 500" stroke="#7ee787" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  
+  <!-- HOST SECTION (Right) -->
+  <rect x="950" y="100" width="200" height="250" rx="10" fill="#161b22" stroke="#30363d"/>
+  <text x="1050" y="130" font-family="Arial, sans-serif" font-size="16" fill="#7ee787" text-anchor="middle" font-weight="bold">HOSTS</text>
+  
+  <!-- Earnings -->
+  <rect x="975" y="150" width="150" height="40" rx="5" fill="#238636" stroke="#2ea043"/>
+  <text x="1050" y="170" font-family="Arial, sans-serif" font-size="11" fill="white" text-anchor="middle">Earnings Ledger</text>
+  <text x="1050" y="183" font-family="Arial, sans-serif" font-size="10" fill="#b3ffb3" text-anchor="middle">(85% per task)</text>
+  
+  <!-- Accumulate -->
+  <rect x="975" y="210" width="150" height="40" rx="5" fill="#1f6feb" stroke="#388bfd"/>
+  <text x="1050" y="235" font-family="Arial, sans-serif" font-size="11" fill="white" text-anchor="middle">Accumulate Balance</text>
+  
+  <!-- PayPal -->
+  <rect x="975" y="270" width="150" height="40" rx="5" fill="#0070ba" stroke="#0091d5"/>
+  <text x="1050" y="290" font-family="Arial, sans-serif" font-size="11" fill="white" text-anchor="middle">PayPal Payout</text>
+  <text x="1050" y="303" font-family="Arial, sans-serif" font-size="10" fill="#b3e5ff" text-anchor="middle">(≥$50 Threshold)</text>
+  
+  <!-- Arrows Host -->
+  <path d="M1050 190 L1050 210" stroke="#7ee787" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <path d="M1050 250 L1050 270" stroke="#7ee787" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  
+  <!-- Connection Lines -->
+  <path d="M250 290 L320 290" stroke="#58a6ff" stroke-width="2" stroke-dasharray="5,5"/>
+  <path d="M880 290 L950 195" stroke="#7ee787" stroke-width="2" stroke-dasharray="5,5"/>
+  
+  <!-- Legend -->
+  <rect x="50" y="620" width="300" height="60" rx="5" fill="#161b22" stroke="#30363d"/>
+  <text x="70" y="645" font-family="Arial, sans-serif" font-size="11" fill="#8b949e">Legend:</text>
+  <rect x="130" y="635" width="15" height="15" fill="#58a6ff"/>
+  <text x="150" y="647" font-family="Arial, sans-serif" font-size="10" fill="#c9d1d9">Renter Flow</text>
+  <rect x="210" y="635" width="15" height="15" fill="#7ee787"/>
+  <text x="230" y="647" font-family="Arial, sans-serif" font-size="10" fill="#c9d1d9">Host Flow</text>
+  <rect x="290" y="635" width="15" height="15" fill="#f78166"/>
+  <text x="310" y="647" font-family="Arial, sans-serif" font-size="10" fill="#c9d1d9">Wasm</text>
+  
+  <!-- Arrow Markers -->
+  <defs>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#58a6ff"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#7ee787"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#f78166"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,141 @@
+syntax = "proto3";
+
+package gapjunction.v1;
+
+// ============================================================================
+// GAP JUNCTION API SPECIFICATION
+// ============================================================================
+//
+// PRIOR ART NOTICE:
+// This API specification is published as Prior Art under 35 U.S.C. § 102.
+// Publication Date: January 17, 2026
+//
+// Copyright (c) 2026 Angizmart. All rights reserved.
+// This specification may be referenced for Prior Art purposes only.
+// ============================================================================
+
+// ControlPlane is the main service for Agent <-> Controller communication.
+service ControlPlane {
+  // Heartbeat sends periodic status updates from an Agent.
+  // Interval: 15 seconds with ±10% jitter
+  rpc Heartbeat(HeartbeatRequest) returns (HeartbeatResponse);
+  
+  // StreamWorkloads establishes a server-push stream for workload dispatch.
+  // Uses QoS-based node selection algorithm.
+  rpc StreamWorkloads(StreamWorkloadsRequest) returns (stream Workload);
+  
+  // ReportCompletion notifies the Controller that a workload has finished.
+  // Triggers billing: deduct renter credits, credit host earnings.
+  rpc ReportCompletion(CompletionReport) returns (CompletionAck);
+}
+
+// ============================================================================
+// HEARTBEAT MESSAGES
+// ============================================================================
+
+message HeartbeatRequest {
+  // Node identity (from mTLS certificate CN)
+  string node_id = 1;
+  string cert_fingerprint = 2;
+  
+  // System metrics (for QoS scoring)
+  double cpu_usage_percent = 3;
+  uint64 memory_available_bytes = 4;
+  uint64 memory_total_bytes = 5;
+  double latency_ms = 6;
+  
+  // Workload status
+  uint32 active_wasm_instances = 7;
+}
+
+message HeartbeatResponse {
+  bool acknowledged = 1;
+}
+
+// ============================================================================
+// WORKLOAD MESSAGES
+// ============================================================================
+
+message StreamWorkloadsRequest {
+  string node_id = 1;
+  
+  // Node capabilities for workload matching
+  uint64 max_memory_bytes = 2;
+  uint64 max_fuel = 3;
+}
+
+message Workload {
+  string workload_id = 1;
+  string client_id = 2;
+  
+  // Wasm module (WASI Preview 2 component)
+  bytes wasm_module = 3;
+  string wasm_hash = 4;
+  
+  // Resource limits
+  uint64 max_fuel = 5;
+  uint64 timeout_ms = 6;
+}
+
+message CompletionReport {
+  string workload_id = 1;
+  string node_id = 2;
+  
+  // Execution result
+  bool success = 3;
+  string error_message = 4;
+  
+  // Resource consumption (for billing)
+  // PRIOR ART: Fuel-based billing at 10B fuel = $0.01
+  uint64 fuel_consumed = 5;
+  uint64 execution_time_ms = 6;
+}
+
+message CompletionAck {
+  bool acknowledged = 1;
+  
+  // Earnings credited (informational)
+  // PRIOR ART: 85% to host, 15% platform fee
+  int64 credited_cents = 2;
+}
+
+// ============================================================================
+// QOS SCORING (PRIOR ART CLAIM 4.2)
+// ============================================================================
+
+// QoSScore documents the Proof-of-Quality scoring algorithm.
+// Formula: U(n) = Σ(weight_i × score_i)
+//
+// PRIOR ART: Exponential uptime penalty
+// S_uptime = (uptime/90)³ if uptime < 90%
+message QoSScore {
+  string node_id = 1;
+  double total_score = 2;
+  
+  // Component breakdown
+  double uptime_score = 3;      // Weight: 0.30
+  double latency_score = 4;     // Weight: 0.20
+  double consistency_score = 5; // Weight: 0.20
+  double capacity_score = 6;    // Weight: 0.15
+  double reliability_score = 7; // Weight: 0.15
+}
+
+// ============================================================================
+// BILLING (PRIOR ART CLAIM 5.1)
+// ============================================================================
+
+// BillingConstants documents the Aggregation Model thresholds.
+// PRIOR ART: Credit/Threshold system for fiat micropayments
+message BillingConstants {
+  // Renter pre-pay minimum: $20.00
+  int32 min_prepay_cents = 1;
+  
+  // Host payout threshold: $50.00
+  int32 min_payout_cents = 2;
+  
+  // Fuel-to-cents ratio: 10,000,000,000 fuel = $0.01
+  uint64 fuel_per_cent = 3;
+  
+  // Revenue share: 15% platform, 85% host
+  int32 platform_fee_bps = 4;  // Basis points (1500 = 15%)
+}

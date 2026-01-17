@@ -1,0 +1,45 @@
+theme: jekyll-theme-minimal
+title: Gap Junction Whitepaper
+description: Fiat-Bridged Residential Compute Grid - Technical Specification
+baseurl: "/gapjunction"
+url: "https://gapjunction.github.io"
+
+# Build settings
+markdown: kramdown
+kramdown:
+  math_engine: mathjax
+  syntax_highlighter: rouge
+
+# MathJax for LaTeX rendering
+head_scripts:
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+# Mermaid for diagrams
+after_footer_scripts:
+  - https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js
+
+# Navigation
+header_pages:
+  - index.md
+  - 01_executive_summary.md
+  - 02_system_architecture.md
+  - 03_security_model.md
+  - 04_qos_ranking.md
+  - 05_fiat_settlement.md
+
+# SEO
+author: Gap Junction Contributors
+twitter:
+  username: gapjunction
+social:
+  name: Gap Junction
+  links:
+    - https://github.com/gapjunction/gapjunction
+
+# Exclude from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
